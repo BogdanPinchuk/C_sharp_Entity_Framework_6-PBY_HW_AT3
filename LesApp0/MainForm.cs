@@ -28,6 +28,8 @@ namespace LesApp0
         public MainForm()
         {
             InitializeComponent();
+
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(Application.ExecutablePath));
         }
 
         /// <summary>
@@ -65,9 +67,11 @@ namespace LesApp0
         {
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
-                AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory);
+                //AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(Application.ExecutablePath));
+                //Database.SetInitializer(new DropCreateDatabaseAlways<LesApp0Context>());
+
+                //AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory);
                 //AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(path));
-                Database.SetInitializer(new DropCreateDatabaseAlways<LesApp0Context>());
                 //this.db = new LesApp0Context(folderBrowser.SelectedPath + @"\LesApp0DB");
                 db = new LesApp0Context();
                 var b = db.Database.Connection.ConnectionString;
