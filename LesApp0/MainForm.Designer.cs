@@ -29,19 +29,24 @@
         private void InitializeComponent()
         {
             this.menu = new System.Windows.Forms.MenuStrip();
-            this.status = new System.Windows.Forms.StatusStrip();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.openMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.createMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.saveMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.status = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.split = new System.Windows.Forms.SplitContainer();
+            this.openFileD = new System.Windows.Forms.OpenFileDialog();
+            this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.dataGrid = new System.Windows.Forms.DataGridView();
             this.menu.SuspendLayout();
             this.status.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.split)).BeginInit();
+            this.split.Panel2.SuspendLayout();
             this.split.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // menu
@@ -53,6 +58,54 @@
             this.menu.Size = new System.Drawing.Size(415, 24);
             this.menu.TabIndex = 0;
             this.menu.Text = "menuStrip1";
+            // 
+            // fileMenu
+            // 
+            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openMenu,
+            this.createMenu,
+            this.saveMenu,
+            this.toolStripSeparator1,
+            this.closeMenu});
+            this.fileMenu.Name = "fileMenu";
+            this.fileMenu.Size = new System.Drawing.Size(37, 20);
+            this.fileMenu.Text = "File";
+            // 
+            // openMenu
+            // 
+            this.openMenu.Name = "openMenu";
+            this.openMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openMenu.Size = new System.Drawing.Size(151, 22);
+            this.openMenu.Text = "Open";
+            this.openMenu.Click += new System.EventHandler(this.openMenu_Click);
+            // 
+            // createMenu
+            // 
+            this.createMenu.Name = "createMenu";
+            this.createMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.createMenu.Size = new System.Drawing.Size(151, 22);
+            this.createMenu.Text = "Create";
+            this.createMenu.Click += new System.EventHandler(this.createMenu_Click);
+            // 
+            // saveMenu
+            // 
+            this.saveMenu.Name = "saveMenu";
+            this.saveMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveMenu.Size = new System.Drawing.Size(151, 22);
+            this.saveMenu.Text = "Save";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
+            // 
+            // closeMenu
+            // 
+            this.closeMenu.Name = "closeMenu";
+            this.closeMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.closeMenu.Size = new System.Drawing.Size(151, 22);
+            this.closeMenu.Text = "Close";
+            this.closeMenu.Click += new System.EventHandler(this.closeMenu_Click);
             // 
             // status
             // 
@@ -70,59 +123,37 @@
             this.statusLabel.Size = new System.Drawing.Size(28, 17);
             this.statusLabel.Text = "info";
             // 
-            // fileMenu
-            // 
-            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openMenu,
-            this.createMenu,
-            this.saveMenu,
-            this.toolStripSeparator1,
-            this.closeToolStripMenuItem});
-            this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(37, 20);
-            this.fileMenu.Text = "File";
-            // 
-            // openMenu
-            // 
-            this.openMenu.Name = "openMenu";
-            this.openMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openMenu.Size = new System.Drawing.Size(152, 22);
-            this.openMenu.Text = "Open";
-            // 
-            // createMenu
-            // 
-            this.createMenu.Name = "createMenu";
-            this.createMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.createMenu.Size = new System.Drawing.Size(152, 22);
-            this.createMenu.Text = "Create";
-            // 
-            // saveMenu
-            // 
-            this.saveMenu.Name = "saveMenu";
-            this.saveMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveMenu.Size = new System.Drawing.Size(152, 22);
-            this.saveMenu.Text = "Save";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.closeToolStripMenuItem.Text = "Close";
-            // 
             // split
             // 
             this.split.Dock = System.Windows.Forms.DockStyle.Fill;
             this.split.Location = new System.Drawing.Point(0, 24);
             this.split.Name = "split";
+            // 
+            // split.Panel2
+            // 
+            this.split.Panel2.Controls.Add(this.dataGrid);
             this.split.Size = new System.Drawing.Size(415, 182);
             this.split.SplitterDistance = 138;
             this.split.TabIndex = 2;
+            // 
+            // openFileD
+            // 
+            this.openFileD.FileName = "DataBase";
+            this.openFileD.Filter = "DB Files *.mdf|*.mdf|All files|*.*";
+            this.openFileD.Title = "Open DataBase File";
+            // 
+            // folderBrowser
+            // 
+            this.folderBrowser.Description = "Choose folder";
+            // 
+            // dataGrid
+            // 
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.Size = new System.Drawing.Size(273, 182);
+            this.dataGrid.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -139,8 +170,10 @@
             this.menu.PerformLayout();
             this.status.ResumeLayout(false);
             this.status.PerformLayout();
+            this.split.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.split)).EndInit();
             this.split.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,10 +187,13 @@
         private System.Windows.Forms.ToolStripMenuItem createMenu;
         private System.Windows.Forms.ToolStripMenuItem saveMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeMenu;
         private System.Windows.Forms.StatusStrip status;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.SplitContainer split;
+        private System.Windows.Forms.OpenFileDialog openFileD;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowser;
+        private System.Windows.Forms.DataGridView dataGrid;
     }
 }
 
