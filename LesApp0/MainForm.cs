@@ -29,7 +29,8 @@ namespace LesApp0
         {
             InitializeComponent();
 
-            //AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(Application.ExecutablePath));
+            //AppDomain.CurrentDomain.SetData("DataDirectory",
+            //    Path.GetDirectoryName(Application.ExecutablePath));
         }
 
         /// <summary>
@@ -41,9 +42,7 @@ namespace LesApp0
         {
             if (openFileD.ShowDialog() == DialogResult.OK)
             {
-                this.db = new LesApp0Context(Path.GetDirectoryName(openFileD.FileName) +
-                    @"\" + Path.GetFileNameWithoutExtension(openFileD.FileName));
-                LoadDBOnForm();
+
             }
         }
 
@@ -54,7 +53,7 @@ namespace LesApp0
         /// <param name="e"></param>
         private void closeMenu_Click(object sender, EventArgs e)
         {
-            db.Dispose();
+            //db?.Dispose();
             this.Close();
         }
 
@@ -65,35 +64,40 @@ namespace LesApp0
         /// <param name="e"></param>
         private void createMenu_Click(object sender, EventArgs e)
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<LesApp0Context>());
+
+            // choose directory for save database
+            statusLabel.Text = "Start creating";
+            Cursor = Cursors.AppStarting;
+
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
-                //AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(Application.ExecutablePath));
-                //Database.SetInitializer(new DropCreateDatabaseAlways<LesApp0Context>());
+                this.path = folderBrowser.SelectedPath;
 
-                //AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory);
-                //AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(path));
-                //this.db = new LesApp0Context(folderBrowser.SelectedPath + @"\LesApp0DB");
-                db = new LesApp0Context();
-                var b = db.Database.Connection.ConnectionString;
-                //db.CreateData();
-                //db.Audiences.Load();
-                Audience aa = new Audience() { Number = 512, Category = "a", CountOfWorkPlace = 20 };
-                this.db.Audiences.Add(aa);
-                this.db.SaveChanges();
+                // choose directory and save data there
+                AppDomain.CurrentDomain.SetData("DataDirectory", path);
+                using (db = new LesApp0Context())
+                {
+                    db.Audiences.Load();
+                    db.SaveChanges();
 
-                LoadDBOnForm();
+                    // load data
+                    LoadDBOnForm(db);
+                }
+
             }
+
+            // finish
+            statusLabel.Text = "Finish creating";
+            Cursor = Cursors.Default;
         }
 
         /// <summary>
         /// Завантаження БД на форму
         /// </summary>
-        private void LoadDBOnForm()
+        private void LoadDBOnForm(LesApp0Context db)
         {
-            if (db.Configuration.UseDatabaseNullSemantics)
-            {
-                dataGrid.DataSource = db.Audiences.Local;
-            }
+            dataGrid.DataSource = db.Audiences.Local;
         }
 
 
