@@ -38,9 +38,9 @@
             this.status = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.split = new System.Windows.Forms.SplitContainer();
+            this.dataGrid = new System.Windows.Forms.DataGridView();
             this.openFileD = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            this.dataGrid = new System.Windows.Forms.DataGridView();
             this.menu.SuspendLayout();
             this.status.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.split)).BeginInit();
@@ -55,7 +55,7 @@
             this.fileMenu});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(415, 24);
+            this.menu.Size = new System.Drawing.Size(467, 24);
             this.menu.TabIndex = 0;
             this.menu.Text = "menuStrip1";
             // 
@@ -111,9 +111,9 @@
             // 
             this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.status.Location = new System.Drawing.Point(0, 206);
+            this.status.Location = new System.Drawing.Point(0, 237);
             this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(415, 22);
+            this.status.Size = new System.Drawing.Size(467, 22);
             this.status.TabIndex = 1;
             this.status.Text = "statusStrip1";
             // 
@@ -129,12 +129,26 @@
             this.split.Location = new System.Drawing.Point(0, 24);
             this.split.Name = "split";
             // 
+            // split.Panel1
+            // 
+            this.split.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            // 
             // split.Panel2
             // 
             this.split.Panel2.Controls.Add(this.dataGrid);
-            this.split.Size = new System.Drawing.Size(415, 182);
-            this.split.SplitterDistance = 138;
+            this.split.Size = new System.Drawing.Size(467, 213);
+            this.split.SplitterDistance = 155;
             this.split.TabIndex = 2;
+            // 
+            // dataGrid
+            // 
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.Size = new System.Drawing.Size(308, 213);
+            this.dataGrid.TabIndex = 0;
+            this.dataGrid.CurrentCellChanged += new System.EventHandler(this.dataGrid_CurrentCellChanged);
             // 
             // openFileD
             // 
@@ -146,20 +160,11 @@
             // 
             this.folderBrowser.Description = "Choose folder";
             // 
-            // dataGrid
-            // 
-            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGrid.Location = new System.Drawing.Point(0, 0);
-            this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(273, 182);
-            this.dataGrid.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 228);
+            this.ClientSize = new System.Drawing.Size(467, 259);
             this.Controls.Add(this.split);
             this.Controls.Add(this.status);
             this.Controls.Add(this.menu);

@@ -37,8 +37,6 @@ namespace LesApp0
         /// <param name="e"></param>
         private void openMenu_Click(object sender, EventArgs e)
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<LesApp0Context>());
-
             // choose directory for save database
             statusLabel.Text = "Start loading";
             Cursor = Cursors.AppStarting;
@@ -115,6 +113,12 @@ namespace LesApp0
             dataGrid.DataSource = db.Audiences.Local;
         }
 
+        private void dataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            statusLabel.Text = dataGrid.CurrentCell?.RowIndex.ToString() +
+                $"x" + dataGrid.CurrentCell?.ColumnIndex.ToString();
+        }
 
+        // TODO: add save to xlsx file of office excel
     }
 }

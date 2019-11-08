@@ -72,6 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CRUD\Create.cs" />
+    <Compile Include="CRUD\Delete.cs" />
+    <Compile Include="CRUD\Read.cs" />
+    <Compile Include="CRUD\Update.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
