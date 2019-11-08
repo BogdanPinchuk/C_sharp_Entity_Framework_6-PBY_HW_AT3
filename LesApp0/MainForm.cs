@@ -24,13 +24,10 @@ namespace LesApp0
         /// Path to file DB
         /// </summary>
         private string path;
-
+        private string filename = @"\LesApp0DB.mdf";
         public MainForm()
         {
             InitializeComponent();
-
-            //AppDomain.CurrentDomain.SetData("DataDirectory",
-            //    Path.GetDirectoryName(Application.ExecutablePath));
         }
 
         /// <summary>
@@ -40,10 +37,29 @@ namespace LesApp0
         /// <param name="e"></param>
         private void openMenu_Click(object sender, EventArgs e)
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<LesApp0Context>());
+
+            // choose directory for save database
+            statusLabel.Text = "Start loading";
+            Cursor = Cursors.AppStarting;
+
             if (openFileD.ShowDialog() == DialogResult.OK)
             {
+                this.path = Path.GetDirectoryName(openFileD.FileName);
+                this.filename = Path.GetFileNameWithoutExtension(openFileD.FileName);
 
+                using (db = new LesApp0Context(path, filename))
+                {
+                    db.Audiences.Load();
+
+                    // load data
+                    LoadDBOnForm(db);
+                }
             }
+
+            // finish
+            statusLabel.Text = "Finish loading";
+            Cursor = Cursors.Default;
         }
 
         /// <summary>
@@ -53,7 +69,7 @@ namespace LesApp0
         /// <param name="e"></param>
         private void closeMenu_Click(object sender, EventArgs e)
         {
-            //db?.Dispose();
+            db?.Dispose();
             this.Close();
         }
 
@@ -84,7 +100,6 @@ namespace LesApp0
                     // load data
                     LoadDBOnForm(db);
                 }
-
             }
 
             // finish

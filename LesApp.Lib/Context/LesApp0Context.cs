@@ -18,46 +18,24 @@
         /// <summary>
         /// Створення підключення
         /// </summary>
-        /// <param name="path">повне ім'я файла</param>
-        public LesApp0Context(string path)
-            : base(CreateFullPath(path)) { }
-
-        /// <summary>
-        /// Створити контекст, так щоб файл знаходився біля exe файла
-        /// </summary>
-        /// <param name="nearExeFile"></param>
-        public LesApp0Context(bool nearExeFile)
-            : base((nearExeFile) ? CreateFullPath(Environment.CurrentDirectory) : "LesApp0Connection") { }
-
-        /// <summary>
-        /// Установка шляху до БД
-        /// </summary>
-        /// <param name="path"></param>
-        public void SetPath(string path)
-            => AppDomain.CurrentDomain.SetData("DataDirectory",
-                Path.GetDirectoryName(path));
-
-        /// <summary>
-        /// Створення початкових даних
-        /// </summary>
-        public void CreateData()
-            => Database.SetInitializer(new ContextInitializer());
+        /// <param name="path">директорія файла</param>
+        /// <param name="filename">ім'я файла без розширення</param>
+        public LesApp0Context(string path, string filename)
+            : base(CreateFullPath(path, filename)) { }
 
         /// <summary>
         /// Налаштування шляху створення БД
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="filename"></param>
         /// <returns></returns>
-        private static string CreateFullPath(string path)
-        {
-            var s = new StringBuilder()
-                .Append(@"data source = (LocalDb)\MSSQLLocalDB;")
-                .Append($@"Initial Catalog = |{Path.GetDirectoryName(path) + @"|\" + Path.GetFileNameWithoutExtension(path)}; ")
-                .Append("Integrated Security=True; MultipleActiveResultSets=True;App=EntityFramework")
-                .ToString();
-
-            return s;
-        }
+        private static string CreateFullPath(string path, string filename)
+            => new StringBuilder()
+            .Append(@"data source = (LocalDb)\MSSQLLocalDB;")
+            .Append($@"AttachDbFilename = {path}\{filename}.mdf;")
+            .Append($@"Initial Catalog = {filename}; ")
+            .Append("Integrated Security=True;")
+            .ToString();
 
         /// <summary>
         /// Аудиторії
