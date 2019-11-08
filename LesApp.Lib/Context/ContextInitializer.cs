@@ -18,8 +18,6 @@ namespace LesApp.Lib.Context
 
         protected override void Seed(LesApp0Context db)
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetDirectoryName(Environment.CurrentDirectory));
-            
             // create data
             Audience[] audiences = new Audience[10];
 
