@@ -14,7 +14,7 @@ namespace LesApp.Lib.Context
     /// </summary>
     public class ContextInitializer : DropCreateDatabaseAlways<LesApp0Context>
     {
-        private Random rnd = new Random();
+        private readonly Random rnd = new Random();
 
         protected override void Seed(LesApp0Context db)
         {

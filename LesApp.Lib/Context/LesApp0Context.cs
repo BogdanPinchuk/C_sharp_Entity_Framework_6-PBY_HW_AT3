@@ -35,6 +35,8 @@
             .Append($@"AttachDbFilename = {path}\{filename}.mdf;")
             .Append($@"Initial Catalog = {filename}; ")
             .Append("Integrated Security=True;")
+            .Append("MultipleActiveResultSets=True;")
+            .Append("App=EntityFramework;")
             .ToString();
 
         /// <summary>

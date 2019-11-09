@@ -16,6 +16,7 @@ namespace LesApp0.CRUD
     {
         internal Create(Audience audience, LesApp0Context db)
         {
+
             db.Entry(audience).State = EntityState.Added;
             
             // add

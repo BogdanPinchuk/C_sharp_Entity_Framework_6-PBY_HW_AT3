@@ -29,6 +29,6 @@ namespace LesApp.Lib.Models
         public string Category { get; set; }
 
         public override string ToString()
-            => $"Audience № {Number}{((Category.Trim() != string.Empty) ? $"-{Category}" : string.Empty)}";
+            => $"Audience № {Number}{((!string.IsNullOrEmpty(Category.Trim())) ? $"-{Category}" : string.Empty)}";
     }
 }
